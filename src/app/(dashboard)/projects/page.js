@@ -9,7 +9,8 @@ import {
   MoreVertical,
   X,
   Search,
-  Check
+  Check,
+  Trash2
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -24,6 +25,21 @@ export default function ProjectsPage() {
     description: '',
     members: []
   });
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [editingProject, setEditingProject] = useState(null);
+  const [projectToDelete, setProjectToDelete] = useState(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (activeMenu && !e.target.closest('.project-menu-container')) {
+        setActiveMenu(null);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [activeMenu]);
 
   useEffect(() => {
     fetchProjects();
@@ -69,6 +85,57 @@ export default function ProjectsPage() {
     }));
   };
 
+  const handleUpdateProject = async (e) => {
+    e.preventDefault();
+    console.log('Updating project:', editingProject);
+    
+    // Ensure we only send member IDs to the backend
+    const projectData = {
+      ...editingProject,
+      members: editingProject.members.map(m => m._id || m)
+    };
+
+    const res = await fetch(`/api/projects/${editingProject._id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(projectData),
+    });
+
+    if (res.ok) {
+      setIsEditModalOpen(false);
+      setEditingProject(null);
+      fetchProjects();
+    } else {
+      const data = await res.json();
+      alert(data.error || 'Failed to update project');
+    }
+  };
+
+  const handleDeleteProject = async () => {
+    if (!projectToDelete) return;
+    const projectId = projectToDelete._id;
+    
+    console.log('Confirmed Deletion for:', projectId);
+    
+    try {
+      const res = await fetch(`/api/projects/${projectId}`, {
+        method: 'DELETE',
+      });
+      
+      if (res.ok) {
+        setIsDeleteModalOpen(false);
+        setProjectToDelete(null);
+        fetchProjects();
+      } else {
+        const data = await res.json();
+        alert(data.error || 'Failed to delete project');
+      }
+    } catch (error) {
+      console.error('Delete request failed:', error);
+      alert('Network error. Failed to delete project.');
+    }
+  };
+
   if (loading) return <div>Loading projects...</div>;
 
   return (
@@ -111,9 +178,53 @@ export default function ProjectsPage() {
               <div className="p-3 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
                 <FolderKanban size={24} />
               </div>
-              <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
-                <MoreVertical size={20} />
-              </button>
+              <div className="relative project-menu-container">
+                <button 
+                  onClick={() => {
+                    setActiveMenu(activeMenu === project._id ? null : project._id);
+                  }}
+                  className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full transition-colors"
+                >
+                  <MoreVertical size={20} />
+                </button>
+                
+                <AnimatePresence>
+                  {activeMenu === project._id && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                      className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-gray-100 dark:border-gray-800 z-10 py-2"
+                    >
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setEditingProject(project);
+                          setIsEditModalOpen(true);
+                          setActiveMenu(null);
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex items-center gap-2"
+                      >
+                        Edit Details
+                      </button>
+                      {user?.role === 'admin' && (
+                        <button 
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setProjectToDelete(project);
+                            setIsDeleteModalOpen(true);
+                            setActiveMenu(null);
+                          }}
+                          className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors flex items-center gap-2"
+                        >
+                          Delete Project
+                        </button>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
             <h3 className="text-lg font-bold mb-2 group-hover:text-blue-600 transition-colors">{project.name}</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 line-clamp-2">{project.description}</p>
@@ -209,6 +320,123 @@ export default function ProjectsPage() {
                   Create Project
                 </button>
               </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Edit Project Modal */}
+      <AnimatePresence>
+        {isEditModalOpen && editingProject && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsEditModalOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative bg-white dark:bg-gray-900 w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden"
+            >
+              <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center">
+                <h2 className="text-xl font-bold">Edit Project</h2>
+                <button onClick={() => setIsEditModalOpen(false)} className="text-gray-400 hover:text-gray-600">
+                  <X size={24} />
+                </button>
+              </div>
+              <form onSubmit={handleUpdateProject} className="p-6 space-y-5">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Project Name</label>
+                  <input
+                    required
+                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    value={editingProject.name}
+                    onChange={(e) => setEditingProject({...editingProject, name: e.target.value})}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Description</label>
+                  <textarea
+                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all h-24 resize-none"
+                    value={editingProject.description}
+                    onChange={(e) => setEditingProject({...editingProject, description: e.target.value})}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Team Members</label>
+                  <div className="max-h-40 overflow-y-auto space-y-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+                    {availableUsers.map(u => (
+                      <div 
+                        key={u._id} 
+                        onClick={() => {
+                          const members = editingProject.members.some(m => (m._id || m) === u._id)
+                            ? editingProject.members.filter(m => (m._id || m) !== u._id)
+                            : [...editingProject.members, u._id];
+                          setEditingProject({...editingProject, members});
+                        }}
+                        className={`flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors ${editingProject.members.some(m => (m._id || m) === u._id) ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' : 'hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+                      >
+                        <span className="text-sm font-medium">{u.name} ({u.role})</span>
+                        {editingProject.members.some(m => (m._id || m) === u._id) && <CheckSquare size={16} />}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/20 transition-all active:scale-95 mt-4"
+                >
+                  Save Changes
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Delete Confirmation Modal */}
+      <AnimatePresence>
+        {isDeleteModalOpen && projectToDelete && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsDeleteModalOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative bg-white dark:bg-gray-900 w-full max-w-sm rounded-3xl shadow-2xl overflow-hidden p-8 text-center"
+            >
+              <div className="w-16 h-16 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Trash2 size={32} />
+              </div>
+              <h2 className="text-xl font-bold mb-2">Delete Project?</h2>
+              <p className="text-gray-500 dark:text-gray-400 text-sm mb-8">
+                Are you sure you want to delete <span className="font-bold text-gray-900 dark:text-white">"{projectToDelete.name}"</span>? 
+                This action is permanent and will delete all associated tasks.
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                <button 
+                  onClick={() => setIsDeleteModalOpen(false)}
+                  className="py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl transition-all"
+                >
+                  Cancel
+                </button>
+                <button 
+                  onClick={handleDeleteProject}
+                  className="py-3 px-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-all shadow-lg shadow-red-500/20"
+                >
+                  Delete
+                </button>
+              </div>
             </motion.div>
           </div>
         )}

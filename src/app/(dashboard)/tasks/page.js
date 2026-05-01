@@ -32,10 +32,12 @@ export default function TasksPage() {
   });
 
   useEffect(() => {
-    fetchTasks();
-    fetchProjects();
-    if (user?.role === 'admin') {
-      fetchUsers();
+    if (user) {
+      fetchTasks();
+      fetchProjects();
+      if (user.role === 'admin') {
+        fetchUsers();
+      }
     }
   }, [user]);
 
@@ -47,9 +49,20 @@ export default function TasksPage() {
   };
 
   const fetchProjects = async () => {
-    const res = await fetch('/api/projects');
-    const data = await res.json();
-    setProjects(data);
+    try {
+      const res = await fetch('/api/projects');
+      const data = await res.json();
+      console.log('Fetched Projects:', data);
+      if (res.ok) {
+        setProjects(Array.isArray(data) ? data : []);
+      } else {
+        console.error('Failed to fetch projects:', data.error);
+        setProjects([]);
+      }
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      setProjects([]);
+    }
   };
 
   const fetchUsers = async () => {
@@ -269,7 +282,11 @@ export default function TasksPage() {
                       onChange={(e) => setNewTask({...newTask, project: e.target.value})}
                     >
                       <option value="">Select Project</option>
-                      {projects.map(p => <option key={p._id} value={p._id}>{p.name}</option>)}
+                      {projects.length > 0 ? (
+                        projects.map(p => <option key={p._id} value={p._id}>{p.name}</option>)
+                      ) : (
+                        <option disabled>No projects found. Create one first!</option>
+                      )}
                     </select>
                   </div>
                   <div className="space-y-1.5">

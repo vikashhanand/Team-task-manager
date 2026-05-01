@@ -48,10 +48,23 @@ A professional-grade, full-stack project management application built with Next.
    Open [http://localhost:3000](http://localhost:3000) with your browser.
 
 
+<<<<<<< HEAD
 
+=======
+1. **Push your code to GitHub**.
+2. **Login to Railway** ([railway.app](https://railway.app/)).
+3. **New Project** -> **Deploy from GitHub repo**.
+4. **Configure Variables**:
+   - Add `MONGO_URI` and `JWT_SECRET` in the Railway "Variables" tab.
+   - (Optional) `NEXT_PUBLIC_APP_URL` should be your Railway assigned URL.
+5. **Railway Settings**:
+   - **Build Command**: `npm run build`
+   - **Start Command**: `npm run start`
+   - **Output**: The project is optimized with `output: 'standalone'` in `next.config.mjs`.
+>>>>>>> 9e96417 (Initial commit - Team Task Manager)
 
-## 📝 Usage
+## 🛠 Troubleshooting Railway Deployment
 
-1. **Signup** as an **Admin** to create projects and tasks.
-2. **Signup** as a **Member** to view and update your assigned tasks.
-3. Admins can manage the entire team and project lifecycle.
+- **Build Time Issues**: We use `export const dynamic = 'force-dynamic'` in the root layout to ensure Next.js doesn't try to fetch data from MongoDB during the build phase.
+- **Environment Variables**: Ensure `MONGO_URI` and `JWT_SECRET` are present in the Railway dashboard before building.
+
