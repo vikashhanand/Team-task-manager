@@ -18,7 +18,7 @@ A professional-grade, full-stack project management application built with Next.
 - **Frontend**: Next.js 15 (App Router), Tailwind CSS 4, Framer Motion, Lucide Icons.
 - **Backend**: Next.js API Routes, Mongoose (MongoDB ODM).
 - **Auth**: JSON Web Tokens (JWT), bcrypt.js.
-- **Deployment**: Railway.
+- **Deployment**: vercel.
 
 ## 📦 Setup Instructions
 
@@ -46,14 +46,8 @@ A professional-grade, full-stack project management application built with Next.
    ```
    Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-## 🌐 Deployment (Railway)
 
-1. **Push your code to GitHub**.
-2. **Login to Railway** ([railway.app](https://railway.app/)).
-3. **New Project** -> **Deploy from GitHub repo**.
-4. **Configure Variables**:
-   - Add `MONGO_URI` and `JWT_SECRET` in the Railway "Variables" tab.
-5. **Railway will auto-detect Next.js** and start the deployment.
+
 
 ## 📝 Usage
 
