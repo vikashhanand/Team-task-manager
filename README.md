@@ -18,7 +18,8 @@ A professional-grade, full-stack project management application built with Next.
 - **Frontend**: Next.js 15 (App Router), Tailwind CSS 4, Framer Motion, Lucide Icons.
 - **Backend**: Next.js API Routes, Mongoose (MongoDB ODM).
 - **Auth**: JSON Web Tokens (JWT), bcrypt.js.
-- **Deployment**: vercel.
+- **Deployment**: Railway
+- .
 
 ## 📦 Setup Instructions
 
