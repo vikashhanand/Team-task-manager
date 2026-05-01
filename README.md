@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TeamTask - Full-Stack Team Task Manager
 
-## Getting Started
+A professional-grade, full-stack project management application built with Next.js, MongoDB, and Tailwind CSS.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Secure Authentication**: JWT-based auth with hashed passwords (bcrypt).
+- **Role-Based Access Control**:
+  - **Admin**: Create projects, manage team members, create/assign/delete tasks.
+  - **Member**: View projects, track and update status of assigned tasks.
+- **Dynamic Dashboard**: Real-time stats for tasks (Total, Completed, Pending, Overdue).
+- **Project Management**: Group tasks by project with member assignment.
+- **Modern UI**: Sleek, responsive design using Tailwind CSS 4 and Framer Motion.
+- **Overdue Highlighting**: Automatic visual cues for tasks past their due date.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠 Tech Stack
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Frontend**: Next.js 15 (App Router), Tailwind CSS 4, Framer Motion, Lucide Icons.
+- **Backend**: Next.js API Routes, Mongoose (MongoDB ODM).
+- **Auth**: JSON Web Tokens (JWT), bcrypt.js.
+- **Deployment**: Railway.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 Setup Instructions
 
-## Learn More
+1. **Clone the repository**:
+   ```bash
+   git clone <your-repo-url>
+   cd team-task-manager
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Configure Environment Variables**:
+   Create a `.env.local` file in the root directory:
+   ```env
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-## Deploy on Vercel
+## 🌐 Deployment (Railway)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Push your code to GitHub**.
+2. **Login to Railway** ([railway.app](https://railway.app/)).
+3. **New Project** -> **Deploy from GitHub repo**.
+4. **Configure Variables**:
+   - Add `MONGO_URI` and `JWT_SECRET` in the Railway "Variables" tab.
+5. **Railway will auto-detect Next.js** and start the deployment.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 Usage
+
+1. **Signup** as an **Admin** to create projects and tasks.
+2. **Signup** as a **Member** to view and update your assigned tasks.
+3. Admins can manage the entire team and project lifecycle.
