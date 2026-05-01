@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import Task from '@/models/Task';
-import Project from '@/models/Project';
 import { getTokenFromRequest } from '@/lib/middleware';
 
 export const dynamic = 'force-dynamic';
@@ -48,9 +47,6 @@ export async function GET(request: NextRequest) {
         { $project: { projectName: { $ifNull: ['$projectInfo.name', 'No Project'] }, count: 1 } },
       ]);
     }
-
-    // Suppress unused variable warning
-    void Project;
 
     return NextResponse.json({ total, completed, inProgress, overdue, recentTasks, byProject });
   } catch (error) {

@@ -21,7 +21,7 @@ export function middleware(request: NextRequest) {
   }
 
   // Protect dashboard routes
-  if (pathname.startsWith('/(dashboard)') || pathname === '/' || pathname.startsWith('/projects') || pathname.startsWith('/tasks')) {
+  if (pathname === '/' || pathname.startsWith('/projects') || pathname.startsWith('/tasks')) {
     if (!user) {
       return NextResponse.redirect(new URL('/login', request.url));
     }

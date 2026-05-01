@@ -68,16 +68,14 @@ function TasksContent() {
   const [creating, setCreating] = useState(false);
   const [createError, setCreateError] = useState('');
 
-  function buildUrl() {
+  useEffect(() => {
     const params = new URLSearchParams();
     if (projectFilter) params.set('projectId', projectFilter);
     if (statusFilter) params.set('status', statusFilter);
-    return `/api/tasks?${params.toString()}`;
-  }
+    const url = `/api/tasks?${params.toString()}`;
 
-  useEffect(() => {
     Promise.all([
-      fetch(buildUrl()).then((r) => r.json()),
+      fetch(url).then((r) => r.json()),
       fetch('/api/projects').then((r) => r.json()),
       fetch('/api/users').then((r) => r.json()),
       fetch('/api/auth/me').then((r) => r.json()),
@@ -87,7 +85,6 @@ function TasksContent() {
       setUsers(usersData.users || []);
       setCurrentUser(meData.user);
     }).finally(() => setLoading(false));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusFilter, projectFilter]);
 
   async function handleStatusChange(taskId: string, newStatus: string) {
