@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Team Task Manager
+
+A full-stack team task management application built with Next.js, MongoDB, and JWT authentication.
+
+## Features
+
+- **Authentication** – Sign up / login with JWT tokens stored in httpOnly cookies
+- **Role-based access** – First registered user becomes admin; subsequent users are members
+- **Projects** – Admins can create projects and add members; members can view their projects
+- **Tasks** – Create, update, and delete tasks with status, priority, due date, and assignee
+- **Dashboard** – Overview of total, completed, in-progress, and overdue tasks with recent activity
+
+## Tech Stack
+
+- **Next.js 14+** (App Router, TypeScript)
+- **MongoDB** with Mongoose
+- **Tailwind CSS**
+- **JWT** (`jsonwebtoken`) + **bcryptjs**
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone and install
+
+```bash
+npm install
+```
+
+### 2. Set environment variables
+
+Copy `.env.example` to `.env.local` and fill in your values:
+
+```bash
+cp .env.example .env.local
+```
+
+```
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/team-task-manager
+JWT_SECRET=your-super-secret-jwt-key-change-in-production
+```
+
+### 3. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The first user to sign up will automatically be assigned the **admin** role.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+```
+app/
+  (auth)/         # Login and signup pages
+  (dashboard)/    # Protected dashboard, projects, and tasks pages
+  api/            # API routes (auth, projects, tasks, dashboard, users)
+lib/              # DB connection, auth helpers, middleware
+models/           # Mongoose models (User, Project, Task)
+middleware.ts     # Route protection middleware
+```
 
-To learn more about Next.js, take a look at the following resources:
+## API Routes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Method | Path | Description |
+|--------|------|-------------|
+| POST | `/api/auth/signup` | Register new user |
+| POST | `/api/auth/login` | Login |
+| POST | `/api/auth/logout` | Logout |
+| GET | `/api/auth/me` | Get current user |
+| GET/POST | `/api/projects` | List / create projects |
+| GET/PUT/DELETE | `/api/projects/[id]` | Project detail / update / delete |
+| POST | `/api/projects/[id]/members` | Add member to project |
+| GET/POST | `/api/tasks` | List / create tasks |
+| GET/PUT/DELETE | `/api/tasks/[id]` | Task detail / update / delete |
+| GET | `/api/dashboard` | Dashboard stats |
+| GET | `/api/users` | List all users |
