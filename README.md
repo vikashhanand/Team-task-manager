@@ -12,7 +12,7 @@ A full-stack team task management application built with Next.js, MongoDB, and J
 
 ## Tech Stack
 
-- **Next.js 14+** (App Router, TypeScript)
+- **Next.js 15+** (App Router, TypeScript)
 - **MongoDB** with Mongoose
 - **Tailwind CSS**
 - **JWT** (`jsonwebtoken`) + **bcryptjs**
