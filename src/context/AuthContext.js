@@ -35,37 +35,53 @@ export function AuthProvider({ children }) {
     checkUser();
   }, []);
 
-  const login = async (email, password) => {
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
+  const parseResponseJson = async (res) => {
+    try {
+      return await res.json();
+    } catch {
+      return {};
+    }
+  };
 
-    const data = await res.json();
-    if (res.ok) {
-      setUser(data.user);
-      router.push('/dashboard');
-      return { success: true };
-    } else {
-      return { success: false, error: data.error };
+  const login = async (email, password) => {
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await parseResponseJson(res);
+      if (res.ok) {
+        setUser(data.user);
+        router.push('/dashboard');
+        return { success: true };
+      }
+
+      return { success: false, error: data.error || 'Login failed. Please try again.' };
+    } catch {
+      return { success: false, error: 'Network error. Please check your connection and try again.' };
     }
   };
 
   const signup = async (userData) => {
-    const res = await fetch('/api/auth/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData),
-    });
+    try {
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData),
+      });
 
-    const data = await res.json();
-    if (res.ok) {
-      setUser(data.user);
-      router.push('/dashboard');
-      return { success: true };
-    } else {
-      return { success: false, error: data.error };
+      const data = await parseResponseJson(res);
+      if (res.ok) {
+        setUser(data.user);
+        router.push('/dashboard');
+        return { success: true };
+      }
+
+      return { success: false, error: data.error || 'Signup failed. Please try again.' };
+    } catch {
+      return { success: false, error: 'Network error. Please check your connection and try again.' };
     }
   };
 

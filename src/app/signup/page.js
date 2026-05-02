@@ -29,9 +29,19 @@ export default function SignupPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
-    const result = await signup(formData);
-    if (!result.success) {
-      setError(result.error);
+
+    const payload = {
+      ...formData,
+      name: formData.name.trim(),
+      email: formData.email.trim().toLowerCase(),
+    };
+
+    try {
+      const result = await signup(payload);
+      if (!result.success) {
+        setError(result.error || 'Unable to sign up. Please try again.');
+      }
+    } finally {
       setLoading(false);
     }
   };

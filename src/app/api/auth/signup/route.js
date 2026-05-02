@@ -6,15 +6,24 @@ import { signToken } from '@/lib/auth';
 
 export async function POST(request) {
   try {
-    console.log('Attempting DB connection...');
     await dbConnect();
-    console.log('DB connected successfully');
 
     const body = await request.json().catch(() => ({}));
-    const { name, email, password, role } = body;
+    const name = typeof body.name === 'string' ? body.name.trim() : '';
+    const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
+    const password = typeof body.password === 'string' ? body.password : '';
+    const role = typeof body.role === 'string' ? body.role : 'member';
 
     if (!name || !email || !password) {
-      return NextResponse.json({ error: 'Missing required fields: name, email, and password are required' }, { status: 400 });
+      return NextResponse.json({ error: 'Name, email, and password are required' }, { status: 400 });
+    }
+
+    if (password.length < 6) {
+      return NextResponse.json({ error: 'Password must be at least 6 characters long' }, { status: 400 });
+    }
+
+    if (!['admin', 'member'].includes(role)) {
+      return NextResponse.json({ error: 'Invalid role selected' }, { status: 400 });
     }
 
     const existingUser = await User.findOne({ email });
@@ -50,10 +59,22 @@ export async function POST(request) {
 
   } catch (error) {
     console.error('Signup Error Detailed:', error);
-    return NextResponse.json({ 
-      error: 'Signup failed', 
-      details: error.message,
-      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-    }, { status: 500 });
+
+    if (error?.code === 11000) {
+      return NextResponse.json({ error: 'User already exists' }, { status: 409 });
+    }
+
+    if (error?.name === 'ValidationError') {
+      const validationMessage = Object.values(error.errors || {})[0]?.message || 'Invalid signup data';
+      return NextResponse.json({ error: validationMessage }, { status: 400 });
+    }
+
+    return NextResponse.json(
+      {
+        error: 'Signup failed. Please try again later.',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined,
+      },
+      { status: 500 }
+    );
   }
 }

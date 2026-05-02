@@ -6,15 +6,14 @@ import { signToken } from '@/lib/auth';
 
 export async function POST(request) {
   try {
-    console.log('Attempting DB connection...');
     await dbConnect();
-    console.log('DB connected successfully');
 
     const body = await request.json().catch(() => ({}));
-    const { email, password } = body;
+    const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
+    const password = typeof body.password === 'string' ? body.password : '';
 
     if (!email || !password) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+      return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
     }
 
     const user = await User.findOne({ email });
@@ -46,10 +45,12 @@ export async function POST(request) {
 
   } catch (error) {
     console.error('Login Error Detailed:', error);
-    return NextResponse.json({ 
-      error: 'Login failed', 
-      details: error.message,
-      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-    }, { status: 500 });
+    return NextResponse.json(
+      {
+        error: 'Login failed. Please try again later.',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined,
+      },
+      { status: 500 }
+    );
   }
 }

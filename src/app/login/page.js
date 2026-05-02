@@ -25,9 +25,13 @@ export default function LoginPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
-    const result = await login(email, password);
-    if (!result.success) {
-      setError(result.error);
+
+    try {
+      const result = await login(email.trim().toLowerCase(), password);
+      if (!result.success) {
+        setError(result.error || 'Unable to login. Please try again.');
+      }
+    } finally {
       setLoading(false);
     }
   };
