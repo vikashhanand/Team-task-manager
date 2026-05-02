@@ -6,8 +6,12 @@ import { signToken } from '@/lib/auth';
 
 export async function POST(request) {
   try {
+    console.log('Attempting DB connection...');
     await dbConnect();
-    const { email, password } = await request.json();
+    console.log('DB connected successfully');
+
+    const body = await request.json().catch(() => ({}));
+    const { email, password } = body;
 
     if (!email || !password) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -41,7 +45,11 @@ export async function POST(request) {
     return response;
 
   } catch (error) {
-    console.error('Login Error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console.error('Login Error Detailed:', error);
+    return NextResponse.json({ 
+      error: 'Login failed', 
+      details: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    }, { status: 500 });
   }
 }

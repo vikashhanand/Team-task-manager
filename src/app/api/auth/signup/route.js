@@ -6,11 +6,15 @@ import { signToken } from '@/lib/auth';
 
 export async function POST(request) {
   try {
+    console.log('Attempting DB connection...');
     await dbConnect();
-    const { name, email, password, role } = await request.json();
+    console.log('DB connected successfully');
+
+    const body = await request.json().catch(() => ({}));
+    const { name, email, password, role } = body;
 
     if (!name || !email || !password) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+      return NextResponse.json({ error: 'Missing required fields: name, email, and password are required' }, { status: 400 });
     }
 
     const existingUser = await User.findOne({ email });
@@ -45,7 +49,11 @@ export async function POST(request) {
     return response;
 
   } catch (error) {
-    console.error('Signup Error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console.error('Signup Error Detailed:', error);
+    return NextResponse.json({ 
+      error: 'Signup failed', 
+      details: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    }, { status: 500 });
   }
 }
