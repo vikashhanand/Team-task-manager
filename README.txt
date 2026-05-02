@@ -19,14 +19,13 @@ A professional-grade, full-stack project management application built with Next.
 - **Backend**: Next.js API Routes, Mongoose (MongoDB ODM).
 - **Auth**: JSON Web Tokens (JWT), bcrypt.js.
 - **Deployment**: Railway
+- .
 
 ## 📦 Setup Instructions
 
-### Local Development
-
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/vikashhanand/Team-task-manager.git
+   git clone <your-repo-url>
    cd team-task-manager
    ```
 
@@ -40,35 +39,29 @@ A professional-grade, full-stack project management application built with Next.
    ```env
    MONGO_URI=your_mongodb_connection_string
    JWT_SECRET=your_jwt_secret_key
-   NEXT_PUBLIC_APP_URL=http://localhost:3000
    ```
 
 4. **Run the development server**:
    ```bash
    npm run dev
    ```
-   Open [http://localhost:3000](http://localhost:3000) in your browser.
+   Open http://localhost:3000 in your browser.
 
-### Deployment on Railway
+## 🚀 Deployment on Railway
 
 1. **Push your code to GitHub**.
 2. **Login to Railway** ([railway.app](https://railway.app/)).
-3. Select **New Project** → **Deploy from GitHub repo**.
-4. **Configure Environment Variables** in Railway:
-   - Add `MONGO_URI` with your MongoDB connection string.
-   - Add `JWT_SECRET` with a secure secret key.
-   - (Optional) Set `NEXT_PUBLIC_APP_URL` to your Railway assigned URL.
-5. **Railway Build Settings**:
+3. **New Project** -> **Deploy from GitHub repo**.
+4. **Configure Variables**:
+   - Add `MONGO_URI` and `JWT_SECRET` in the Railway "Variables" tab.
+   - (Optional) `NEXT_PUBLIC_APP_URL` should be your Railway assigned URL.
+5. **Railway Settings**:
    - **Build Command**: `npm run build`
    - **Start Command**: `npm run start`
-   - The project uses `output: 'standalone'` in `next.config.mjs` for optimized deployment.
+   - **Output**: The project is optimized with `output: 'standalone'` in `next.config.mjs`.
 
 ## 🛠 Troubleshooting Railway Deployment
 
-- **Build Time Issues**: The root layout uses `export const dynamic = 'force-dynamic'` to prevent Next.js from fetching MongoDB data during the build phase.
-- **Environment Variables**: Ensure `MONGO_URI` and `JWT_SECRET` are properly set in the Railway dashboard before deploying.
-- **Connection Errors**: Verify your MongoDB Atlas IP whitelist includes Railway's IP range or use `0.0.0.0/0` for development.
+- **Build Time Issues**: We use `export const dynamic = 'force-dynamic'` in the root layout to ensure Next.js doesn't try to fetch data from MongoDB during the build phase.
+- **Environment Variables**: Ensure `MONGO_URI` and `JWT_SECRET` are present in the Railway dashboard before building.
 
-## 📝 License
-
-This project is open source and available under the MIT License.
