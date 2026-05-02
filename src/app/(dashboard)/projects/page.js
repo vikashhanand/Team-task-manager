@@ -148,7 +148,7 @@ export default function ProjectsPage() {
         {user?.role === 'admin' && (
           <button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all shadow-lg shadow-blue-500/20 active:scale-95"
+            className="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-all shadow-lg shadow-indigo-500/20 active:scale-95"
           >
             <Plus size={20} />
             <span>New Project</span>
@@ -161,7 +161,7 @@ export default function ProjectsPage() {
         <input 
           type="text" 
           placeholder="Search projects..." 
-          className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+          className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm"
         />
       </div>
 
@@ -175,7 +175,7 @@ export default function ProjectsPage() {
             className="bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800 hover:shadow-md transition-all group"
           >
             <div className="flex justify-between items-start mb-4">
-              <div className="p-3 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
+              <div className="p-3 rounded-xl bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400">
                 <FolderKanban size={24} />
               </div>
               <div className="relative project-menu-container">
@@ -226,7 +226,7 @@ export default function ProjectsPage() {
                 </AnimatePresence>
               </div>
             </div>
-            <h3 className="text-lg font-bold mb-2 group-hover:text-blue-600 transition-colors">{project.name}</h3>
+            <h3 className="text-lg font-bold mb-2 group-hover:text-indigo-600 transition-colors">{project.name}</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 line-clamp-2">{project.description}</p>
             
             <div className="flex items-center justify-between pt-4 border-t border-gray-50 dark:border-gray-800">
@@ -235,7 +235,7 @@ export default function ProjectsPage() {
                   <div 
                     key={member._id}
                     title={member.name}
-                    className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 border-2 border-white dark:border-gray-900 flex items-center justify-center text-[10px] font-bold text-blue-600 dark:text-blue-400"
+                    className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900 border-2 border-white dark:border-gray-900 flex items-center justify-center text-[10px] font-bold text-indigo-600 dark:text-indigo-400"
                   >
                     {member.name.charAt(0)}
                   </div>
@@ -283,7 +283,7 @@ export default function ProjectsPage() {
                   <label className="text-sm font-medium">Project Name</label>
                   <input
                     required
-                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                     placeholder="e.g. Website Redesign"
                     value={newProject.name}
                     onChange={(e) => setNewProject({...newProject, name: e.target.value})}
@@ -292,7 +292,7 @@ export default function ProjectsPage() {
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Description</label>
                   <textarea
-                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all h-24 resize-none"
+                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all h-24 resize-none"
                     placeholder="Describe the project goal..."
                     value={newProject.description}
                     onChange={(e) => setNewProject({...newProject, description: e.target.value})}
@@ -305,7 +305,7 @@ export default function ProjectsPage() {
                       <div 
                         key={u._id} 
                         onClick={() => toggleMember(u._id)}
-                        className={`flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors ${newProject.members.includes(u._id) ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' : 'hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+                        className={`flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors ${newProject.members.includes(u._id) ? 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300' : 'hover:bg-gray-100 dark:hover:bg-gray-700'}`}
                       >
                         <span className="text-sm font-medium">{u.name} ({u.role})</span>
                         {newProject.members.includes(u._id) && <CheckSquare size={16} />}
@@ -315,7 +315,7 @@ export default function ProjectsPage() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/20 transition-all active:scale-95 mt-4"
+                  className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition-all active:scale-95 mt-4"
                 >
                   Create Project
                 </button>
@@ -353,7 +353,7 @@ export default function ProjectsPage() {
                   <label className="text-sm font-medium">Project Name</label>
                   <input
                     required
-                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                     value={editingProject.name}
                     onChange={(e) => setEditingProject({...editingProject, name: e.target.value})}
                   />
@@ -361,7 +361,7 @@ export default function ProjectsPage() {
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Description</label>
                   <textarea
-                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all h-24 resize-none"
+                    className="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all h-24 resize-none"
                     value={editingProject.description}
                     onChange={(e) => setEditingProject({...editingProject, description: e.target.value})}
                   />
@@ -378,7 +378,7 @@ export default function ProjectsPage() {
                             : [...editingProject.members, u._id];
                           setEditingProject({...editingProject, members});
                         }}
-                        className={`flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors ${editingProject.members.some(m => (m._id || m) === u._id) ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' : 'hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+                        className={`flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors ${editingProject.members.some(m => (m._id || m) === u._id) ? 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300' : 'hover:bg-gray-100 dark:hover:bg-gray-700'}`}
                       >
                         <span className="text-sm font-medium">{u.name} ({u.role})</span>
                         {editingProject.members.some(m => (m._id || m) === u._id) && <CheckSquare size={16} />}
@@ -388,7 +388,7 @@ export default function ProjectsPage() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/20 transition-all active:scale-95 mt-4"
+                  className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition-all active:scale-95 mt-4"
                 >
                   Save Changes
                 </button>
@@ -447,7 +447,7 @@ export default function ProjectsPage() {
 
 function CheckSquare({ size }) {
   return (
-    <div className="bg-blue-600 text-white rounded p-0.5">
+    <div className="bg-indigo-600 text-white rounded p-0.5">
       <Check size={size} />
     </div>
   );

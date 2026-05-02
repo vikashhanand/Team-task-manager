@@ -30,7 +30,7 @@ export default function DashboardPage() {
       title: 'Total Tasks', 
       value: stats.totalTasks, 
       icon: BarChart3, 
-      color: 'blue',
+      color: 'indigo',
       description: 'Total tasks assigned'
     },
     { 
@@ -88,12 +88,12 @@ export default function DashboardPage() {
         <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-bold">Recent Activity</h2>
-            <button className="text-sm text-blue-600 hover:underline">View all</button>
+            <button className="text-sm text-indigo-600 hover:underline">View all</button>
           </div>
           <div className="space-y-4">
             {/* Placeholder for activity */}
             <div className="flex gap-4 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-              <div className="w-2 h-10 bg-blue-500 rounded-full" />
+              <div className="w-2 h-10 bg-indigo-500 rounded-full" />
               <div>
                 <p className="text-sm font-medium">New project "Mobile App" created</p>
                 <p className="text-xs text-gray-400">2 hours ago</p>

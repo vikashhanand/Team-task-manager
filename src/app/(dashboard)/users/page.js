@@ -41,7 +41,7 @@ export default function UsersPage() {
         <input 
           type="text" 
           placeholder="Search team members..." 
-          className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+          className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm"
         />
       </div>
 
@@ -66,7 +66,7 @@ export default function UsersPage() {
               >
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold text-sm">
+                    <div className="w-9 h-9 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold text-sm">
                       {member.name.charAt(0)}
                     </div>
                     <span className="font-medium">{member.name}</span>

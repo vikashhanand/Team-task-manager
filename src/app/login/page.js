@@ -37,14 +37,14 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-950 p-4">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-md w-full"
       >
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent mb-2">
             Welcome Back
           </h1>
           <p className="text-gray-600 dark:text-gray-400">Login to manage your team tasks</p>
@@ -92,7 +92,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70"
+              className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70 shadow-lg shadow-indigo-500/20"
             >
               {loading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -107,7 +107,7 @@ export default function LoginPage() {
 
           <p className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
             Don't have an account?{' '}
-            <Link href="/signup" className="text-blue-600 hover:underline font-medium">
+            <Link href="/signup" className="text-indigo-600 hover:underline font-medium">
               Create one for free
             </Link>
           </p>

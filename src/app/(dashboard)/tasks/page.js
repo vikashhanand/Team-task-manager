@@ -126,7 +126,7 @@ export default function TasksPage() {
   const getStatusColor = (status) => {
     switch (status) {
       case 'done': return 'text-green-600 bg-green-50 dark:bg-green-900/20 dark:text-green-400 border-green-100 dark:border-green-900/30';
-      case 'in-progress': return 'text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400 border-blue-100 dark:border-blue-900/30';
+      case 'in-progress': return 'text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20 dark:text-indigo-400 border-indigo-100 dark:border-indigo-900/30';
       default: return 'text-gray-600 bg-gray-50 dark:bg-gray-800 dark:text-gray-400 border-gray-100 dark:border-gray-700';
     }
   };
@@ -150,7 +150,7 @@ export default function TasksPage() {
         {user?.role === 'admin' && (
           <button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all shadow-lg shadow-blue-500/20 active:scale-95"
+            className="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-all shadow-lg shadow-indigo-500/20 active:scale-95"
           >
             <Plus size={20} />
             <span>Create Task</span>
@@ -257,7 +257,7 @@ export default function TasksPage() {
                   <label className="text-sm font-medium">Task Title</label>
                   <input
                     required
-                    className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none"
                     placeholder="e.g. Implement Auth"
                     value={newTask.title}
                     onChange={(e) => setNewTask({...newTask, title: e.target.value})}
@@ -266,7 +266,7 @@ export default function TasksPage() {
                 <div className="space-y-1.5">
                   <label className="text-sm font-medium">Description</label>
                   <textarea
-                    className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none h-20 resize-none"
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none h-20 resize-none"
                     placeholder="Task details..."
                     value={newTask.description}
                     onChange={(e) => setNewTask({...newTask, description: e.target.value})}
@@ -277,7 +277,7 @@ export default function TasksPage() {
                     <label className="text-sm font-medium">Project</label>
                     <select
                       required
-                      className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+                      className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none"
                       value={newTask.project}
                       onChange={(e) => setNewTask({...newTask, project: e.target.value})}
                     >
@@ -293,7 +293,7 @@ export default function TasksPage() {
                     <label className="text-sm font-medium">Assign To</label>
                     <select
                       required
-                      className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+                      className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none"
                       value={newTask.assignedTo}
                       onChange={(e) => setNewTask({...newTask, assignedTo: e.target.value})}
                     >
@@ -307,14 +307,14 @@ export default function TasksPage() {
                   <input
                     type="date"
                     required
-                    className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+                    className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none"
                     value={newTask.dueDate}
                     onChange={(e) => setNewTask({...newTask, dueDate: e.target.value})}
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/20 transition-all active:scale-95 mt-4"
+                  className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition-all active:scale-95 mt-4"
                 >
                   Create Task
                 </button>

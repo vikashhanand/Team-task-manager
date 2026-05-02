@@ -47,14 +47,14 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-950 p-4">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-md w-full"
       >
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent mb-2">
             Create Account
           </h1>
           <p className="text-gray-600 dark:text-gray-400">Join your team and start managing tasks</p>
@@ -120,7 +120,7 @@ export default function SignupPage() {
                 <button
                   type="button"
                   onClick={() => setFormData({...formData, role: 'member'})}
-                  className={`flex items-center justify-center gap-2 py-2.5 rounded-xl border transition-all ${formData.role === 'member' ? 'bg-blue-50 border-blue-200 text-blue-600 dark:bg-blue-900/20 dark:border-blue-800' : 'bg-transparent border-gray-200 dark:border-gray-700 text-gray-500'}`}
+                  className={`flex items-center justify-center gap-2 py-2.5 rounded-xl border transition-all ${formData.role === 'member' ? 'bg-indigo-50 border-indigo-200 text-indigo-600 dark:bg-indigo-900/20 dark:border-indigo-800' : 'bg-transparent border-gray-200 dark:border-gray-700 text-gray-500'}`}
                 >
                   <User size={18} />
                   <span>Member</span>
@@ -128,7 +128,7 @@ export default function SignupPage() {
                 <button
                   type="button"
                   onClick={() => setFormData({...formData, role: 'admin'})}
-                  className={`flex items-center justify-center gap-2 py-2.5 rounded-xl border transition-all ${formData.role === 'admin' ? 'bg-blue-50 border-blue-200 text-blue-600 dark:bg-blue-900/20 dark:border-blue-800' : 'bg-transparent border-gray-200 dark:border-gray-700 text-gray-500'}`}
+                  className={`flex items-center justify-center gap-2 py-2.5 rounded-xl border transition-all ${formData.role === 'admin' ? 'bg-indigo-50 border-indigo-200 text-indigo-600 dark:bg-indigo-900/20 dark:border-indigo-800' : 'bg-transparent border-gray-200 dark:border-gray-700 text-gray-500'}`}
                 >
                   <ShieldCheck size={18} />
                   <span>Admin</span>
@@ -139,7 +139,7 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70 mt-4"
+              className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70 shadow-lg shadow-indigo-500/20 mt-4"
             >
               {loading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -154,7 +154,7 @@ export default function SignupPage() {
 
           <p className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
             Already have an account?{' '}
-            <Link href="/login" className="text-blue-600 hover:underline font-medium">
+            <Link href="/login" className="text-indigo-600 hover:underline font-medium">
               Sign In
             </Link>
           </p>

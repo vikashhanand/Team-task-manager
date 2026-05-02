@@ -28,7 +28,7 @@ export default function Sidebar() {
   return (
     <aside className="w-64 h-screen sticky top-0 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col">
       <div className="p-6">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
           TeamTask
         </h1>
       </div>
@@ -43,12 +43,12 @@ export default function Sidebar() {
               className={cn(
                 "flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 group",
                 isActive 
-                  ? "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400" 
+                  ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-900/20 dark:text-indigo-400" 
                   : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
               )}
             >
               <div className="flex items-center gap-3">
-                <item.icon size={20} className={cn("transition-colors", isActive ? "text-blue-600" : "group-hover:text-gray-900 dark:group-hover:text-white")} />
+                <item.icon size={20} className={cn("transition-colors", isActive ? "text-indigo-600" : "group-hover:text-gray-900 dark:group-hover:text-white")} />
                 <span className="font-medium">{item.name}</span>
               </div>
               {isActive && <ChevronRight size={16} />}
@@ -61,7 +61,7 @@ export default function Sidebar() {
             href="/users"
             className={cn(
               "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800",
-              pathname === '/users' && "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400"
+              pathname === '/users' && "bg-indigo-50 text-indigo-600 dark:bg-indigo-900/20 dark:text-indigo-400"
             )}
           >
             <Users size={20} />
@@ -72,7 +72,7 @@ export default function Sidebar() {
 
       <div className="p-4 mt-auto border-t border-gray-200 dark:border-gray-800">
         <div className="flex items-center gap-3 px-2 mb-4">
-          <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold">
+          <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold border border-indigo-200 dark:border-indigo-800/50">
             {user.name.charAt(0)}
           </div>
           <div className="overflow-hidden">

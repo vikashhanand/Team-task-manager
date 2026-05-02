@@ -1,27 +1,46 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0a0a0a;
-  --color-foreground: #ededed;
-  --color-primary: #3b82f6;
+  --color-background: #0f172a;
+  --color-foreground: #f8fafc;
+  --color-primary: #6366f1;
+  --color-primary-hover: #4f46e5;
   --color-secondary: #64748b;
   --color-accent: #f59e0b;
-  --color-success: #10b981;
+  --color-success: #22c55e;
   --color-danger: #ef4444;
+  
+  /* Override default palette for deep dark theme */
+  --color-slate-950: #0f172a;
+  --color-gray-900: #111827;
+  --color-gray-800: #1f2937;
+  --color-gray-700: #374151;
+
+  /* Specific palette overrides to match requested status colors */
+  --color-blue-600: #6366f1;
+  --color-blue-700: #4f46e5;
+  --color-green-500: #22c55e;
+  --color-green-600: #16a34a; /* Adjusted for contrast */
+  --color-amber-500: #f59e0b;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
   
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Roboto Mono, monospace;
+
+  --shadow-premium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
 }
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0f172a;
+    --foreground: #f8fafc;
   }
 }
 
@@ -29,26 +48,28 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .btn-primary {
-  @apply px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all active:scale-95 disabled:opacity-50;
+  @apply px-4 py-2.5 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-all active:scale-[0.98] disabled:opacity-50 font-medium shadow-lg shadow-indigo-500/20;
 }
 
 .btn-secondary {
-  @apply px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-all active:scale-95 disabled:opacity-50 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700;
+  @apply px-4 py-2.5 bg-gray-100 text-gray-800 rounded-xl hover:bg-gray-200 transition-all active:scale-[0.98] disabled:opacity-50 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 font-medium;
 }
 
 .input-field {
-  @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-transparent dark:border-gray-700;
+  @apply w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 bg-gray-50 dark:bg-gray-900/50 dark:border-gray-800 dark:text-white transition-all;
 }
 
 .card {
-  @apply p-6 bg-white rounded-xl shadow-sm border border-gray-100 dark:bg-gray-900 dark:border-gray-800;
+  @apply p-6 bg-white rounded-2xl shadow-sm border border-gray-100 dark:bg-gray-900 dark:border-gray-800 transition-all hover:shadow-md dark:hover:border-gray-700;
 }
+
